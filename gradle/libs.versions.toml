@@ -16,7 +16,7 @@ constraintlayout = "2.2.1"
 picasso = "2.71828"
 preferenceKtx = "1.2.1"
 legacySupportV4 = "1.0.0"
-retrofit = "2.9.0"
+retrofit = "3.0.0"
 timber = "5.0.1"
 shimmer = "0.5.0"
 

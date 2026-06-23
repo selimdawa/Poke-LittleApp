@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -32,11 +31,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlin {
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
-        }
-    }
     buildFeatures {
         dataBinding = true
     }
@@ -46,7 +40,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity.ktx)
-    implementation("androidx.fragment:fragment-ktx:1.5.4")
+    implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.preference.ktx)           //Shared Preference
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -54,18 +48,15 @@ dependencies {
     //Layout
     implementation(libs.androidx.constraintlayout)
     implementation(libs.material)
-    implementation(libs.androidx.legacy.support.v4)
-    implementation(libs.androidx.cardview)
-    // ViewModel
+    //LifeCycle
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    // LiveData
     implementation(libs.androidx.lifecycle.livedata.ktx)
-    // Retrofit & Gson
+    //Retrofit & Gson
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-    // Coroutines
+    //Coroutines
     implementation(libs.kotlinx.coroutines.core)
-    //Needed
+    //Other's
     implementation(libs.picasso)                //Picasso
     implementation(libs.lottie)                 //LottieFiles
     implementation(libs.shimmer)                //shimmer

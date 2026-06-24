@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.RecyclerView
 import com.littleapp.poke.Unit.DATA
 import com.littleapp.poke.databinding.FragmentListPokeBinding
 import com.littleapp.poke.domain.SelectedListener
@@ -21,14 +20,13 @@ class ListFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: PokeViewModel by viewModels()
     private lateinit var adapter: ItemAdapter
-    private lateinit var recyclerView: RecyclerView
     private lateinit var listener: SelectedListener
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         listener = try {
             context as SelectedListener
-        } catch (e: ClassCastException) {
+        } catch (_: ClassCastException) {
             throw ClassCastException("$context you must implement the listener")
         }
     }
@@ -38,7 +36,6 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentListPokeBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
@@ -48,8 +45,7 @@ class ListFragment : Fragment() {
         binding.toolbar.nameSpace.text = DATA.POKE
 
         adapter = ItemAdapter()
-        recyclerView = binding.recyclerViewPoke
-        recyclerView.adapter = adapter
+        binding.recyclerViewPoke.adapter = adapter
 
         observeApiStatus()
         observeListPokemon()

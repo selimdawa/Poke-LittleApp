@@ -4,16 +4,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.littleapp.poke.R
 import com.littleapp.poke.Unit.THEME
+import com.littleapp.poke.databinding.ActivityMainBinding
 import com.littleapp.poke.domain.SelectedListener
 
 class MainActivity : AppCompatActivity(), SelectedListener {
 
+    private lateinit var binding: ActivityMainBinding
     var context = this@MainActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         THEME.setThemeOfApp(context)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     override fun onSelected(id: Int) {

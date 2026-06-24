@@ -1,6 +1,6 @@
 package com.littleapp.poke.Unit
 
-import com.littleapp.poke.Activity.*
+import com.littleapp.poke.ui.SplashActivity
 import com.littleapp.poke.ui.view.MainActivity
 
 object CLASS {

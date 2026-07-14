@@ -3,6 +3,7 @@ package com.littleapp.poke.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.littleapp.poke.domain.GetPokemons
 import com.littleapp.poke.domain.model.PokeItem
@@ -18,28 +19,25 @@ class PokeViewModel @Inject constructor(
     private val getPokemons: GetPokemons
 ) : ViewModel() {
 
-    private var _pokemonList = MutableLiveData<List<PokeItem>>()
-    val pokemonList: LiveData<List<PokeItem>>
-        get() = _pokemonList
+    val pokemonList: LiveData<List<PokeItem>> = getPokemons.pokemonList.asLiveData()
 
     private var _status = MutableLiveData<ApiStatus>()
     val status: LiveData<ApiStatus>
         get() = _status
 
     init {
-        getAllPokemon()
+        refreshPokemons()
     }
 
-    private fun getAllPokemon() {
+    fun refreshPokemons() {
         _status.value = ApiStatus.LOADING
         viewModelScope.launch {
             try {
-                _pokemonList.value = getPokemons.listAll()
+                getPokemons.refresh()
                 _status.value = ApiStatus.DONE
             } catch (e: Exception) {
                 _status.value = ApiStatus.ERROR
                 Timber.d(e.message)
-                _pokemonList.value = listOf()
             }
         }
     }

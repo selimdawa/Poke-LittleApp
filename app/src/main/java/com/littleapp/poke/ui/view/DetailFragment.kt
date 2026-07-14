@@ -33,7 +33,10 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toolbar.nameSpace.text = DATA.Details_Poke
+        binding.toolbar.nameSpace.text = DATA.DETAILS_POKE
+
+        val id = arguments?.getInt("id") ?: -1
+        viewModel.getPokemonDetails(id)
 
         observeStatus()
         observe()
@@ -51,10 +54,8 @@ class DetailFragment : Fragment() {
                 binding.tvType2.visibility = View.GONE
             }
 
-            Picasso.get().load(pokemon.img)
-                .placeholder(R.drawable.loading_animation)
-                .error(R.drawable.ic_broken_image)
-                .into(binding.image)
+            Picasso.get().load(pokemon.img).placeholder(R.drawable.loading_animation)
+                .error(R.drawable.ic_broken_image).into(binding.image)
 
             binding.collapsingToolbar.title = pokemon.name
             binding.tvHp.text = pokemon.hp.toString()

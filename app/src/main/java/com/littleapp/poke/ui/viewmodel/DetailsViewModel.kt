@@ -2,7 +2,6 @@ package com.littleapp.poke.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.littleapp.poke.domain.GetDetails
@@ -16,8 +15,7 @@ enum class ApiStatusDetail { LOADING, ERROR, DONE }
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val getDetails: GetDetails,
-    savedStateHandle: SavedStateHandle
+    private val getDetails: GetDetails
 ) : ViewModel() {
 
     private var _pokeDetails = MutableLiveData<PokeItemDetails>()
@@ -27,21 +25,25 @@ class DetailsViewModel @Inject constructor(
     val status: LiveData<ApiStatusDetail>
         get() = _status
 
-    init {
-        savedStateHandle.get<Int>("id")?.let { id ->
-            getPokemonDetails(id)
-        }
-    }
+    private var currentId: Int = -1
 
-    private fun getPokemonDetails(id: Int) {
+    fun getPokemonDetails(id: Int) {
+        if (id == -1 || id == currentId) return
+        
+        currentId = id
         _status.value = ApiStatusDetail.LOADING
         viewModelScope.launch {
             try {
-                _pokeDetails.value = getDetails.fromPokemon(id)
-                _status.value = ApiStatusDetail.DONE
+                val result = getDetails.fromPokemon(id)
+                if (result != null) {
+                    _pokeDetails.value = result!!
+                    _status.value = ApiStatusDetail.DONE
+                } else {
+                    _status.value = ApiStatusDetail.ERROR
+                }
             } catch (e: Exception) {
                 _status.value = ApiStatusDetail.ERROR
-                Timber.d(e.message)
+                Timber.e(e)
             }
         }
     }

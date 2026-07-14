@@ -2,11 +2,11 @@ package com.littleapp.poke.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.littleapp.poke.domain.GetDetails
 import com.littleapp.poke.domain.model.PokeItemDetails
-import com.littleapp.poke.ui.view.DetailFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -16,7 +16,8 @@ enum class ApiStatusDetail { LOADING, ERROR, DONE }
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val getDetails: GetDetails
+    private val getDetails: GetDetails,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private var _pokeDetails = MutableLiveData<PokeItemDetails>()
@@ -27,7 +28,9 @@ class DetailsViewModel @Inject constructor(
         get() = _status
 
     init {
-        getPokemonDetails(DetailFragment.idP)
+        savedStateHandle.get<Int>("id")?.let { id ->
+            getPokemonDetails(id)
+        }
     }
 
     private fun getPokemonDetails(id: Int) {

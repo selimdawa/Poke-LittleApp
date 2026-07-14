@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import com.littleapp.poke.R
-import com.littleapp.poke.utils.DATA
 import com.littleapp.poke.databinding.FragmentDetailPokeBinding
 import com.littleapp.poke.ui.viewmodel.ApiStatusDetail
 import com.littleapp.poke.ui.viewmodel.DetailsViewModel
+import com.littleapp.poke.utils.DATA
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,14 +20,7 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentDetailPokeBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: DetailsViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            idP = it.getInt("id")
-        }
-    }
+    private val viewModel: DetailsViewModel by hiltNavGraphViewModels(R.id.main_graph)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -105,9 +98,5 @@ class DetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        var idP = 0
     }
 }

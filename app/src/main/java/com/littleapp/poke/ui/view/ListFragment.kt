@@ -1,14 +1,15 @@
 package com.littleapp.poke.ui.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.navigation.fragment.findNavController
+import com.littleapp.poke.R
 import com.littleapp.poke.databinding.FragmentListPokeBinding
-import com.littleapp.poke.domain.SelectedListener
 import com.littleapp.poke.ui.view.adapters.ItemAdapter
 import com.littleapp.poke.ui.viewmodel.ApiStatus
 import com.littleapp.poke.ui.viewmodel.PokeViewModel
@@ -20,18 +21,8 @@ class ListFragment : Fragment() {
 
     private var _binding: FragmentListPokeBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: PokeViewModel by viewModels()
+    private val viewModel: PokeViewModel by hiltNavGraphViewModels(R.id.main_graph)
     private lateinit var adapter: ItemAdapter
-    private lateinit var listener: SelectedListener
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        listener = try {
-            context as SelectedListener
-        } catch (_: ClassCastException) {
-            throw ClassCastException("$context you must implement the listener")
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,7 +72,10 @@ class ListFragment : Fragment() {
     }
 
     private fun onClickItem() {
-        adapter.onItemClickListener = { poke -> listener.onSelected(poke.id) }
+        adapter.onItemClickListener = { poke ->
+            val bundle = bundleOf("id" to poke.id)
+            findNavController().navigate(R.id.action_listFragment_to_detailFragment, bundle)
+        }
     }
 
     override fun onDestroyView() {

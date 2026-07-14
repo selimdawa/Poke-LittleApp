@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.littleapp.poke.R
 import com.littleapp.poke.databinding.ItemPokeBinding
 import com.littleapp.poke.domain.model.PokeItem
-import com.squareup.picasso.Picasso
 
 class ItemAdapter : ListAdapter<PokeItem, ItemAdapter.ViewHolder>(DiffCallBack) {
 
@@ -20,10 +20,11 @@ class ItemAdapter : ListAdapter<PokeItem, ItemAdapter.ViewHolder>(DiffCallBack) 
             binding.tvId.text = pokeItem.formatId
             binding.tvName.text = pokeItem.name
 
-            Picasso.get().load(pokeItem.img)
-                .placeholder(R.drawable.loading_animation)
-                .error(R.drawable.ic_broken_image)
-                .into(binding.ivPokemon)
+            binding.ivPokemon.load(pokeItem.img) {
+                placeholder(R.drawable.loading_animation)
+                error(R.drawable.ic_broken_image)
+                crossfade(true)
+            }
 
             binding.root.setOnClickListener {
                 if (::onItemClickListener.isInitialized) {

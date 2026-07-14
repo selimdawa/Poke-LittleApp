@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import coil.load
 import com.littleapp.poke.R
 import com.littleapp.poke.databinding.FragmentDetailPokeBinding
 import com.littleapp.poke.ui.viewmodel.ApiStatusDetail
 import com.littleapp.poke.ui.viewmodel.DetailsViewModel
 import com.littleapp.poke.utils.DATA
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -54,8 +54,11 @@ class DetailFragment : Fragment() {
                 binding.tvType2.visibility = View.GONE
             }
 
-            Picasso.get().load(pokemon.img).placeholder(R.drawable.loading_animation)
-                .error(R.drawable.ic_broken_image).into(binding.image)
+            binding.image.load(pokemon.img) {
+                placeholder(R.drawable.loading_animation)
+                error(R.drawable.ic_broken_image)
+                crossfade(true)
+            }
 
             binding.collapsingToolbar.title = pokemon.name
             binding.tvHp.text = pokemon.hp.toString()

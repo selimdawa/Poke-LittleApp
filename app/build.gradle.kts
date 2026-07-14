@@ -52,7 +52,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.material)
     //Image
-    implementation(libs.picasso)                //Picasso
+    implementation(libs.coil)                   //Coil
     implementation(libs.lottie)                 //LottieFiles
     implementation(libs.shimmer)                //shimmer
     //Lifecycle

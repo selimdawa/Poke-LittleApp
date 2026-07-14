@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
@@ -21,7 +20,7 @@ class ListFragment : Fragment() {
 
     private var _binding: FragmentListPokeBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: PokeViewModel by hiltNavGraphViewModels(R.id.main_graph)
+    private val viewModel: PokeViewModel by hiltNavGraphViewModels(R.id.nav_graph)
     private lateinit var adapter: ItemAdapter
 
     override fun onCreateView(
@@ -53,11 +52,13 @@ class ListFragment : Fragment() {
                     binding.shimmerLoading.visibility = View.VISIBLE
                     binding.recyclerViewPoke.visibility = View.GONE
                 }
+
                 ApiStatus.ERROR -> {
                     binding.statusOffline.visibility = View.VISIBLE
                     binding.shimmerLoading.visibility = View.GONE
                     binding.recyclerViewPoke.visibility = View.GONE
                 }
+
                 ApiStatus.DONE -> {
                     binding.statusOffline.visibility = View.GONE
                     binding.shimmerLoading.visibility = View.GONE
@@ -73,7 +74,7 @@ class ListFragment : Fragment() {
 
     private fun onClickItem() {
         adapter.onItemClickListener = { poke ->
-            val bundle = bundleOf("id" to poke.id)
+            val bundle = Bundle().apply { putInt("id", poke.id) }
             findNavController().navigate(R.id.action_listFragment_to_detailFragment, bundle)
         }
     }

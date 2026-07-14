@@ -14,4 +14,3 @@ interface ApiClient {
     @GET(value = "pokemon/{id}")
     suspend fun getDetailsPokemon(@Path("id") id: Int): Response<PokeModelDetails>
 }
-

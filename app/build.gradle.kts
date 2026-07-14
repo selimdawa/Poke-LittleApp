@@ -53,7 +53,7 @@ dependencies {
     implementation(libs.material)
     //Image
     implementation(libs.coil)                   //Coil
-    implementation(libs.lottie)                 //LottieFiles
+    implementation(libs.lottie)                 //Lottie Animation
     implementation(libs.shimmer)                //shimmer
     //Lifecycle
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

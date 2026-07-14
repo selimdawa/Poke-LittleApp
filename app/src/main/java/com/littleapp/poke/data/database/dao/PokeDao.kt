@@ -12,15 +12,14 @@ import kotlinx.coroutines.flow.Flow
 interface PokeDao {
 
     @Query("SELECT * FROM pokemon_table ORDER BY id ASC")
-    fun getAllPokemons(): Flow<List<PokeEntity>>
+    fun getAllPokemon(): Flow<List<PokeEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(pokemons: List<PokeEntity>)
+    suspend fun insertAll(pokemon: List<PokeEntity>)
 
     @Query("DELETE FROM pokemon_table")
     suspend fun clearTable()
 
-    // Details
     @Query("SELECT * FROM pokemon_detail_table WHERE id_int = :id")
     suspend fun getPokemonDetails(id: Int): PokeDetailEntity?
 

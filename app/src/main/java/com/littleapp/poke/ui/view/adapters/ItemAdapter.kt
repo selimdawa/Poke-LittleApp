@@ -14,7 +14,8 @@ class ItemAdapter : ListAdapter<PokeItem, ItemAdapter.ViewHolder>(DiffCallBack) 
 
     lateinit var onItemClickListener: (PokeItem) -> Unit
 
-    inner class ViewHolder(private val binding: ItemPokeBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemPokeBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(pokeItem: PokeItem) {
             binding.tvId.text = pokeItem.formatId
@@ -44,7 +45,10 @@ class ItemAdapter : ListAdapter<PokeItem, ItemAdapter.ViewHolder>(DiffCallBack) 
     }
 
     companion object DiffCallBack : DiffUtil.ItemCallback<PokeItem>() {
-        override fun areItemsTheSame(oldItem: PokeItem, newItem: PokeItem): Boolean = oldItem.id == newItem.id
-        override fun areContentsTheSame(oldItem: PokeItem, newItem: PokeItem): Boolean = oldItem == newItem
+        override fun areItemsTheSame(oldItem: PokeItem, newItem: PokeItem): Boolean =
+            oldItem.id == newItem.id
+
+        override fun areContentsTheSame(oldItem: PokeItem, newItem: PokeItem): Boolean =
+            oldItem == newItem
     }
 }

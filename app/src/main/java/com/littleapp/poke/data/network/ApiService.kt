@@ -8,10 +8,10 @@ import javax.inject.Inject
 
 class ApiService @Inject constructor(private val apiClient: ApiClient) {
 
-    suspend fun getPokemons(): List<PokeModel> {
+    suspend fun getPokemon(): List<PokeModel> {
         return withContext(Dispatchers.IO) {
             val response = apiClient.getListPokemon()
-            response.body()?.pokemons ?: emptyList()
+            response.body()?.pokemon ?: emptyList()
         }
     }
 

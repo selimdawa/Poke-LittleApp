@@ -7,8 +7,7 @@ import androidx.preference.PreferenceManager
 import com.littleapp.poke.R
 
 inline fun <reified T : Activity> Context.launchActivity(
-    finishCaller: Boolean = false,
-    noinline intentModifier: Intent.() -> Unit = {}
+    finishCaller: Boolean = false, noinline intentModifier: Intent.() -> Unit = {}
 ) {
     val intent = Intent(this, T::class.java)
     intent.intentModifier()

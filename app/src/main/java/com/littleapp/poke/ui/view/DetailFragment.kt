@@ -20,7 +20,7 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentDetailPokeBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: DetailsViewModel by hiltNavGraphViewModels(R.id.main_graph)
+    private val viewModel: DetailsViewModel by hiltNavGraphViewModels(R.id.nav_graph)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">Poke - Little App</string>
+    <string name="app_name">Pokémon - Little App</string>
 
     //Theme
     <string name="basic_theme">Basic Theme</string>
     <string name="sec_theme">Sec Theme</string>
 
-    <string name="pokemon_image">Pokemon Image</string>
+    <string name="pokemon_image">Pokémon Image</string>
     <string name="type">Type :</string>
     <string name="hp">Hp :</string>
     <string name="speed">Speed :</string>

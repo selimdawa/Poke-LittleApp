@@ -29,14 +29,14 @@ class DetailsViewModel @Inject constructor(
 
     fun getPokemonDetails(id: Int) {
         if (id == -1 || id == currentId) return
-        
+
         currentId = id
         _status.value = ApiStatusDetail.LOADING
         viewModelScope.launch {
             try {
                 val result = getDetails.fromPokemon(id)
                 if (result != null) {
-                    _pokeDetails.value = result!!
+                    _pokeDetails.value = result
                     _status.value = ApiStatusDetail.DONE
                 } else {
                     _status.value = ApiStatusDetail.ERROR

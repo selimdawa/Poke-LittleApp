@@ -3,7 +3,7 @@ package com.littleapp.poke.data.model
 import com.google.gson.annotations.SerializedName
 
 data class ResultApi(
-    @SerializedName("results") val pokemons: List<PokeModel>,
+    @SerializedName("results") val pokemon: List<PokeModel>,
 )
 
 data class PokeModel(

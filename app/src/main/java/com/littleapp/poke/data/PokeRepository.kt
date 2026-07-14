@@ -14,16 +14,15 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class PokeRepository @Inject constructor(
-    private val api: ApiService,
-    private val pokeDao: PokeDao
+    private val api: ApiService, private val pokeDao: PokeDao
 ) {
 
-    val pokemonListFlow: Flow<List<PokeItem>> = pokeDao.getAllPokemons().map { entities ->
+    val pokemonListFlow: Flow<List<PokeItem>> = pokeDao.getAllPokemon().map { entities ->
         entities.map { it.toDomain() }
     }.flowOn(Dispatchers.IO)
 
-    suspend fun fetchAndStorePokemons() {
-        val response = api.getPokemons()
+    suspend fun fetchAndStorePokemon() {
+        val response = api.getPokemon()
         if (response.isNotEmpty()) {
             val entities = response.map { it.toDomain().toDatabase() }
             pokeDao.clearTable()

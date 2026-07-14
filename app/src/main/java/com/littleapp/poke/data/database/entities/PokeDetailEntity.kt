@@ -7,8 +7,7 @@ import com.littleapp.poke.domain.model.PokeItemDetails
 
 @Entity(tableName = "pokemon_detail_table")
 data class PokeDetailEntity(
-    @PrimaryKey
-    @ColumnInfo(name = "id_int") val idInt: Int,
+    @PrimaryKey @ColumnInfo(name = "id_int") val idInt: Int,
     @ColumnInfo(name = "id") val id: String,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "img") val img: String,
@@ -18,7 +17,7 @@ data class PokeDetailEntity(
     @ColumnInfo(name = "special_attack") val specialAttack: Int,
     @ColumnInfo(name = "special_defense") val specialDefense: Int,
     @ColumnInfo(name = "speed") val speed: Int,
-    @ColumnInfo(name = "types") val types: String, // Stored as comma separated
+    @ColumnInfo(name = "types") val types: String,
     @ColumnInfo(name = "weight") val weight: Double,
     @ColumnInfo(name = "height") val height: Double
 )
